@@ -28,5 +28,15 @@ class Room
     return true
   end
 
+  def get_mood
+    mood = ""
+    for guest in guests
+      if guest.cheer(@playlist)
+        mood += "#{guest.name} says #{guest.cheer(@playlist)}\n"
+      end
+    end
+    @guests.each { |guest| mood += "#{guest.name} says #{guest.cheer(@playlist)}\n" if guest.cheer(@playlist)}
+    return mood
+  end
 
 end
