@@ -16,6 +16,7 @@ class Room
   def check_in(guest)
     return "Too Full" if !(free_space?)
     @guests << guest
+    guest.lose_money(@entry_fee)
   end
 
   def check_out(guest)

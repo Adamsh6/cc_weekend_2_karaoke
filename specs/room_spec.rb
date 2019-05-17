@@ -10,9 +10,9 @@ class RoomTest < Minitest::Test
     @song1 = Song.new("Two Trains")
     @song2 = Song.new("Bat out of Hell")
     @song3 = Song.new("Take it Easy")
-    @guest1 = Guest.new("James")
-    @guest2 = Guest.new("Rick")
-    @guest3 = Guest.new("Bob")
+    @guest1 = Guest.new("James", 20)
+    @guest2 = Guest.new("Rick", 30)
+    @guest3 = Guest.new("Bob", 4)
     @room1 = Room.new(6)
   end
 
@@ -23,6 +23,7 @@ class RoomTest < Minitest::Test
   def test_check_in_guest
     @room1.check_in(@guest1)
     assert_equal(1, @room1.guests.size)
+    assert_equal(15, @guest1.wallet)
   end
 
   def test_check_out_guest
@@ -72,4 +73,5 @@ class RoomTest < Minitest::Test
     @room1.check_in(@guest1)
     assert_equal("Too Full", @room1.check_in(@guest1))
   end
+
 end
