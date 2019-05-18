@@ -13,7 +13,12 @@ class RoomTest < Minitest::Test
     @guest1 = Guest.new("James", 20, @song1)
     @guest2 = Guest.new("Rick", 30, @song2)
     @guest3 = Guest.new("Bob", 4, @song3)
-    @room1 = Room.new(6)
+    @menu = {
+      "Whisky" => 6,
+      "Vodka" => 4,
+      "Beer" => 2
+    }
+    @room1 = Room.new(6, @menu)
   end
 
   def test_get_initial_guestlist
@@ -24,6 +29,7 @@ class RoomTest < Minitest::Test
     @room1.check_in(@guest1)
     assert_equal(1, @room1.guests.size)
     assert_equal(15, @guest1.wallet)
+    assert_equal(5, @room1.bar.tab, "Bar tab change fail")
   end
 
   def test_check_out_guest
@@ -83,6 +89,13 @@ class RoomTest < Minitest::Test
     wanted_string = "James says Wooo!
 Rick says Wooo!"
     assert_equal(wanted_string, @room1.get_mood)
+  end
+
+  def test_buy_drink
+    @room1.check_in(@guest1)
+    @room1.buy_drink(@guest1, "Vodka")
+    assert_equal(11, @guest1.wallet)
+    assert_equal(9, @room1.bar.tab)
   end
 
 end
